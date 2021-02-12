@@ -1,0 +1,10 @@
+module.exports = mongoose => {
+  
+    var schema = mongoose.Schema({
+      <% Object.keys(schema).forEach(function(key){ %>
+        <%= key %>:<%= schema[key] %>,
+     <%})%>});
+  
+    const  <%= schema_upper %> = mongoose.model("<%= schema_name %>", schema);
+    return <%= schema_upper %>;
+  };

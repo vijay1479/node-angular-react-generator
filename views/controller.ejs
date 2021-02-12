@@ -1,0 +1,124 @@
+const db = require("../models");
+const <%= schema_upper %> = db.<%= schema_name %>;
+
+
+exports.create = (req, res) => {
+  
+   const <%= schema_name %> = new <%= schema_upper %>({
+     <% keys.forEach(function(key){ %>
+          <%= key %>:req.body.<%= key %>,
+    <% })%>}
+    );
+  
+  
+  <%= schema_name %>
+    .save(<%= schema_name %>)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the <%= schema_upper %>."
+      });
+    });
+};
+
+
+exports.findAll = (req, res) => {
+  var condition = '';
+
+  <%= schema_upper %>.find(condition)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving <%= schema_name %>s."
+      });
+    });
+};
+
+
+exports.findOne = (req, res) => {
+  const id = req.params.id;
+
+  <%= schema_upper %>.findById(id)
+    .then(data => {
+      if (!data)
+        res.status(404).send({ message: "Not found <%= schema_upper %> with id " + id });
+      else res.send(data);
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .send({ message: "Error retrieving <%= schema_upper %> with id=" + id });
+    });
+};
+
+
+exports.update = (req, res) => {
+  if (!req.body) {
+    return res.status(400).send({
+      message: "Data to update can not be empty!"
+    });
+  }
+
+  const id = req.params.id;
+
+  <%= schema_upper %>.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+    .then(data => {
+      if (!data) {
+        res.status(404).send({
+          message: `Cannot update <%= schema_upper %> with id=${id}. Maybe <%= schema_upper %> was not found!`
+        });
+      } else res.send({ message: "<%= schema_upper %> was updated successfully." });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating <%= schema_upper %> with id=" + id
+      });
+    });
+};
+
+
+exports.delete = (req, res) => {
+  const id = req.params.id;
+
+  <%= schema_upper %>.findByIdAndRemove(id, { useFindAndModify: false })
+    .then(data => {
+      if (!data) {
+        res.status(404).send({
+          message: `Cannot delete <%= schema_upper %> with id=${id}. Maybe <%= schema_upper %> was not found!`
+        });
+      } else {
+        res.send({
+          message: "<%= schema_upper %> was deleted successfully!"
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Could not delete <%= schema_upper %> with id=" + id
+      });
+    });
+};
+
+
+exports.deleteAll = (req, res) => {
+    <%= schema_upper %>.deleteMany({})
+    .then(data => {
+      res.send({
+        message: `${data.deletedCount} <%= schema_upper %>s were deleted successfully!`
+      });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while removing all <%= schema_name %>s."
+      });
+    });
+};
+
+

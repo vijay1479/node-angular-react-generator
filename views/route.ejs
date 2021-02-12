@@ -1,0 +1,24 @@
+module.exports = app => {
+    const <%= schema_name %> = require("../controllers/<%= schema_name %>.controller.js");
+    var router = require("express").Router();
+
+    router.post("/", <%= schema_name %>.create);
+  
+    
+    router.get("/", <%= schema_name %>.findAll);
+  
+   
+    router.get("/:id", <%= schema_name %>.findOne);
+  
+    
+    router.put("/:id", <%= schema_name %>.update);
+  
+    
+    router.delete("/:id", <%= schema_name %>.delete);
+  
+    
+    router.delete("/", <%= schema_name %>.deleteAll);
+  
+    app.use("/api/<%= schema_name %>", router);
+  };
+  

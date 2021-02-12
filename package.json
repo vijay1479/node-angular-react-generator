@@ -1,0 +1,26 @@
+{
+  "name": "node-angular-react-generator",
+  "version": "1.0.2",
+  "description": "This project will generate templates for different type of projects",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "generate",
+    "projects",
+    "with",
+    "node"
+  ],
+  "author": "Vijay Pandey",
+  "license": "MIT",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "inquirer": "^7.3.3"
+  },
+  "bin": {
+    "generate": "./index.js",
+    "create_mvc": "./create-api.js"
+  }
+}
